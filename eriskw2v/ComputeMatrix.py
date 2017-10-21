@@ -4,13 +4,20 @@ import numpy as np
 
 class CompMatrix:
 		
-	def __init__(model):
+	def __init__(self,model):
 		self.model = model
-		#gensim.models.KeyedVectors.load_word2vec_format('C:\\Users\\abkma\\anlp\\GoogleNews-vectors-negative300.bin', binary=True)
  
-	def get_matrix(bag):
-		#return [[self.model.word_vec(word,use_norm=True)] for word in bag]
-		pass
+	def get_matrix(self,bag,norm=True):
+		matrix = {}
+		count = 0
+		for word in bag:
+			count+=1
+			try:
+				if word:
+					matrix[word] = self.model.word_vec(word,use_norm=norm)
+			except KeyError:
+				pass
+		return matrix
 
 	def get_concat_matrix(bag1,bag2):
 		pass
