@@ -15,9 +15,9 @@ if __name__ == '__main__':
     #sentences = PathLineSentences(pos_paths)
     #model = Word2Vec(sentences=sentences, size=100, alpha=0.025, window=5, min_count=2,negative=5)
     #model.wv.save('neg_class.bin')
-    word_vectors = KeyedVectors.load('neg_class.bin')
+    word_vectors = KeyedVectors.load('pos_class.bin')
     comp = CompMatrix(word_vectors)
-    neg_matrix = comp.get_matrix(ud.get_bag(neg_path))
+    neg_matrix = comp.get_matrix(ud.get_bag(pos_paths))
     for key in neg_matrix.keys():
         print(key,'     ',neg_matrix[key])
 

@@ -7,7 +7,7 @@ class CompMatrix:
 	def __init__(self,model):
 		self.model = model
  
-	def get_matrix(self,bag,norm=True):
+	def get_matrix(self,bag,norm=False):
 		matrix = {}
 		count = 0
 		for word in bag:
