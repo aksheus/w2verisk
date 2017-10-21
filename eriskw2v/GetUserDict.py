@@ -16,6 +16,7 @@ class UserDict:
 		for f in files:
 			with open(join(self.path,f),errors='ignore') as read:
 				all_words = word_tokenize(''.join(line for line in read ))
+				all_words = [ w.lower() for w in all_words]
 				user_data[f]=all_words
 		return user_data
 

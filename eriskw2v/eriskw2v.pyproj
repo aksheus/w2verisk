@@ -21,6 +21,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="ComputeMatrix.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="eriskw2v.py" />
     <Compile Include="GetUserDict.py" />
   </ItemGroup>
