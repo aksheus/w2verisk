@@ -2,6 +2,7 @@ from GetUserDict import UserDict
 from ComputeMatrix import CompMatrix
 from gensim.models.word2vec import Word2Vec,PathLineSentences
 from gensim.models import KeyedVectors
+import gc
 
 if __name__ == '__main__':
     ud = UserDict()
@@ -14,10 +15,17 @@ if __name__ == '__main__':
     print('success')"""
     pos_vectors = KeyedVectors.load('postvt_class.bin')
     neg_vectors = KeyedVectors.load('neg_class.bin')
-    pos_comp_matrix = CompMatrix(pos_vectors)
-    neg_comp_matrix = CompMatrix(neg_vectors)
-    pos_matrix = pos_comp_matrix.get_matrix(ud.get_bag(pos_path))
-    neg_matrix = neg_comp_matrix.get_matrix(ud.get_bag(neg_path))
-    for key in neg_matrix.keys():
-        print(key,'     ',neg_matrix[key])
+    comp_matrix = CompMatrix()
+    pos_matrix = comp_matrix.get_matrix(pos_vectors,ud.get_bag(pos_path))
+    neg_matrix = comp_matrix.get_matrix(neg_vectors,ud.get_bag(neg_path))
+    gc.collect()
+    representation_matrix = comp_matrix.get_concat_matrix(pos_matrix,neg_matrix)
+    print(len(representation_matrix))
+    count = 0
+    for key in representation_matrix.keys():
+        count+=1
+        print(key,'     ',representation_matrix[key])
+        print(len(representation_matrix[key]))
+        if count > 5:
+            break
 
