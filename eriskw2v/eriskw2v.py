@@ -32,5 +32,5 @@ if __name__ == '__main__':
         if count > 5:
             break"""
     builder = Builder(representation_matrix,pos_path,neg_path,test_path,truth,'1','0',200)
-    print(builder.GetTruthDict())
     #builder.GetTrainRep('train')
+    builder.GetTestRep('test')

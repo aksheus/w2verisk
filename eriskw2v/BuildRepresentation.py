@@ -56,7 +56,14 @@ class Builder:
         return Truth
     
     def GetTestRep(self,outfile):
-        pass 
+        Truth = self.GetTruthDict()
+        with open(outfile+'.csv','w',encoding='utf-8') as out:
+            out.write(','.join(z for z in self.features))
+            out.write('\n')
+            for f in self.test_files:
+                dv = self.GetDocVector(f)
+                out.write(','.join(str(v) for v in dv)+','+ Truth[f.split('\\')[-1]])
+                out.write('\n')
 
 
 
