@@ -45,8 +45,18 @@ class Builder:
                 dv = self.GetDocVector(f)
                 out.write(','.join(str(v) for v in dv)+','+self.neg_label)
                 out.write('\n')
-            
-                
+          
+    def GetTruthDict(self):
+        Truth = {}
+        with open(self.truth) as read:
+            for line in read:
+                pieces = line.split()
+                key = pieces[0].split('_')[-1]+'.txt'
+                Truth[key]= pieces[-1]
+        return Truth
+    
+    def GetTestRep(self,outfile):
+        pass 
 
 
 
