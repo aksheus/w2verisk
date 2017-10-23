@@ -50,7 +50,7 @@ if __name__ == '__main__':
 	parser = argparse.ArgumentParser(description='python feorm.py --train <train-csv> --test <test-csv> --fnames <unpruned-test-arff file>')
 	parser.add_argument('-tr','--train',help='path to train-csv',required=True)
 	parser.add_argument('-te','--test',help='path to test-csv',required=True)
-	#parser.add_argument('-fn','--fnames',help='path to unpruned test arff file',required=True)
+	parser.add_argument('-tt','--trorte',help='type cross or test',required=True)
 	args= vars(parser.parse_args())
 
 	trdf , labels = get_data_frame(args['train'])
@@ -70,30 +70,29 @@ if __name__ == '__main__':
 	nb = NB()
 	
 	clfs = [rf,svm_rbf,svm_linear,nb]
-	"""scoring = ['f1_macro','accuracy','precision_macro','recall_macro']
-	for clf in clfs:
-		print clf 
-		scores = cross_validate(clf,trdf,labels,scoring = scoring,cv=10,return_train_score=False)
-		for s in scores.keys():
-			print s
-			for v in scores[s]:
-				print v
-			print '###############################'
-		print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$'"""
 
+	if args['trorte'] == 'cross':
+		scoring = ['f1_macro','accuracy','precision_macro','recall_macro']
+		for clf in clfs:
+			print clf 
+			scores = cross_validate(clf,trdf,labels,scoring = scoring,cv=10,return_train_score=False)
+			for s in scores.keys():
+				print s
+				for v in scores[s]:
+					print v
+				print '###############################'
+			print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+	elif args['trorte'] == 'test':
 	#clf.fit(trdf,labels)
-	for clf in clfs:
-		clf.fit(trdf,labels)
-
-	zs =[ clf.predict(tedf) for clf in clfs]
-
-	#z = clf.predict(tedf)
-	#zrbf = clf2.predict(tedf)
-	#zlinear = clf3.predict(tedf)
-
-	for clf,z in zip(clfs,zs):
-		print clf
-		print '{0}'.format(classification_report(y_true=truth,y_pred=z)) #target_names=['female','male']
+		for clf in clfs:
+			clf.fit(trdf,labels)
+		zs =[ clf.predict(tedf) for clf in clfs]
+		#z = clf.predict(tedf)
+		#zrbf = clf2.predict(tedf)
+		#zlinear = clf3.predict(tedf)
+		for clf,z in zip(clfs,zs):
+			print clf
+			print '{0}'.format(classification_report(y_true=truth,y_pred=z)) #target_names=['female','male']
 
 
 
