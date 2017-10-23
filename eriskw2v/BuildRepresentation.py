@@ -22,7 +22,7 @@ class Builder:
         self.features.append('categories')
 
     def GetDocVector(self,document):
-        bow = self.ud.get_bag(document)
+        bow = self.ud.get_bag_fromfile(document)
         word_vectors = []
         for w in bow:
             try:
@@ -34,7 +34,7 @@ class Builder:
         return np.mean(doc_matrix,axis=0)
 
     def GetTrainRep(self,outfile):
-        with open(outfile+'.csv','w',encoding='utf-8'):
+        with open(outfile+'.csv','w',encoding='utf-8') as out:
             out.write(','.join(z for z in self.features))
             out.write('\n')
             for f in self.pos_files:

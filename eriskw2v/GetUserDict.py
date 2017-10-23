@@ -28,7 +28,16 @@ class UserDict:
 				all_words = word_tokenize(''.join(line for line in read ))
 				for w in all_words:
 					bag.add(w.lower())
-		return list(bag) 
+		return list(bag)
+	
+	def get_bag_fromfile(self,path):
+		bag = set()
+		with open(path,errors='ignore') as read:
+			all_words = word_tokenize(''.join(line for line in read ))
+			for w in all_words:
+				bag.add(w.lower())
+		return list(bag)
+
 		
 	def combine_bags(self,bags):
 		return set().union(*bags)
