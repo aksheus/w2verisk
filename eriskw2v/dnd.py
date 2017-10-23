@@ -9,7 +9,7 @@ from sklearn.naive_bayes import GaussianNB as NB
 import argparse
 
 """
-     USAGE : python feorm.py --train <train-csv> --test <test-csv> 
+     USAGE : python feorm.py --train <train-csv> --test <test-csv> --trorte <cross> or <test>
 
      outputs submission.txt
 """
@@ -74,14 +74,14 @@ if __name__ == '__main__':
 	if args['trorte'] == 'cross':
 		scoring = ['f1_macro','accuracy','precision_macro','recall_macro']
 		for clf in clfs:
-			print clf 
+			print(clf) 
 			scores = cross_validate(clf,trdf,labels,scoring = scoring,cv=10,return_train_score=False)
 			for s in scores.keys():
-				print s
+				print(s)
 				for v in scores[s]:
-					print v
-				print '###############################'
-			print '$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+					print(v)
+				print ('###############################')
+			print ('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
 	elif args['trorte'] == 'test':
 	#clf.fit(trdf,labels)
 		for clf in clfs:
@@ -91,8 +91,8 @@ if __name__ == '__main__':
 		#zrbf = clf2.predict(tedf)
 		#zlinear = clf3.predict(tedf)
 		for clf,z in zip(clfs,zs):
-			print clf
-			print '{0}'.format(classification_report(y_true=truth,y_pred=z)) #target_names=['female','male']
+			print (clf)
+			print ('{0}'.format(classification_report(y_true=truth,y_pred=z))) #target_names=['female','male']
 
 
 
